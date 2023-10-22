@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 
 @Entity
 public class Students extends Person{
-    @Column(name = "student_niveaudetude")
+    @Column(name = "niveaudetude")
     protected int  niveauEtude;
     //constructeur
     public Students(Long id,String nom, String prenom, String datedenaissance, String adr, String mdp,int niveauEtude) {
