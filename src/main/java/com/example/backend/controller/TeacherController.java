@@ -3,24 +3,26 @@ package com.example.backend.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.backend.entity.Teacher;
 import com.example.backend.service.TeacherService;
 
 @RestController
-@RequestMapping("/api/v1/teachercontroller")
+@RequestMapping("/teachers")
 public class TeacherController {
-
+@Autowired
     private TeacherService teacherService;
+
+@PostMapping()
+public ResponseEntity<Teacher> createTeacher(@RequestBody Teacher teacher){
+
+    Teacher t = teacherService.createTeacher(teacher);
+    return new ResponseEntity<>(t, HttpStatus.OK);
+}
 
     // build get user by id REST API
     @GetMapping("{id}")
@@ -39,17 +41,16 @@ public class TeacherController {
     }
 
     // Build Update User REST API
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Teacher> updateTeacher(@PathVariable("id") Long teacherId,@RequestBody Teacher teacher){
-        Teacher updatedteacher = teacherService.updateTeacher(teacher);
+        Teacher updatedteacher = teacherService.updateTeacher(teacherId, teacher);
         return new ResponseEntity<>(updatedteacher, HttpStatus.OK);
     }
 
     // Build Delete User REST API
    // Delete operation
-   @DeleteMapping("/departments/{id}")
-   public String deleteTeacher(@PathVariable("id")
-                                      Long teacherId)
+   @DeleteMapping("/{id}")
+   public String deleteTeacher(@PathVariable("id") Long teacherId)
    {
        teacherService.deleteTeacher(teacherId);
        return "Deleted Successfully";

@@ -4,10 +4,19 @@ import java.util.Optional;
 import java.util.List;
 import com.example.backend.Repository.StudentRepository;
 import com.example.backend.entity.Students;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class StudentServiceImp implements StudentService {
+    @Autowired
 
     private StudentRepository studentRepository;
+
+    @Override
+    public Students createStudent(Students student) {
+        return studentRepository.save(student);
+    }
 
     @Override
     public List<Students> getAllStudents() {
@@ -22,15 +31,20 @@ public class StudentServiceImp implements StudentService {
     }
 
     @Override
-    public Students updateStudent(Students student) {
-        Students t = studentRepository.findById(student.getId()).get();
-        t.setNom(student.getNom());
-        t.setPrenom(student.getPrenom());
-        t.setDatedenaissance(student.getDatedenaissance());
-        t.setAdr(student.getAdr());
-        t.setVille(student.getVille());
-        Students updatedstudent = studentRepository.save(t);
-        return updatedstudent;
+    public Students updateStudent(Long id,Students student) {
+        Optional<Students> ot = studentRepository.findById(id);
+        if(ot.isPresent()){
+            Students t=ot.get();
+            t.setId(id);
+            t.setNom(student.getNom());
+            t.setPrenom(student.getPrenom());
+            t.setDatedenaissance(student.getDatedenaissance());
+            t.setAdr(student.getAdr());
+            t.setVille(student.getVille());
+            Students updatedstudent = studentRepository.save(t);
+            return updatedstudent;
+        }
+        return null;
     }
 
     @Override

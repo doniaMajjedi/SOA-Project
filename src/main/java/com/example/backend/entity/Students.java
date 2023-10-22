@@ -1,5 +1,7 @@
 package com.example.backend.entity;
  
+import java.sql.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
@@ -7,9 +9,13 @@ import jakarta.persistence.Entity;
 public class Students extends Person{
     @Column(name = "student_niveaudetude")
     protected int  niveauEtude;
+
+    //default constructor
+    public Students(){}
+
     //constructeur
-    public Students(Long id,String nom, String prenom, String datedenaissance, String adr, String mdp,int niveauEtude) {
-        super(id,nom, prenom, datedenaissance, adr, mdp);
+    public Students(Long id,String nom, String prenom, Date datedenaissance, String adr, String ville,int niveauEtude) {
+        super(id,nom, prenom, datedenaissance, adr, ville);
         this.niveauEtude=niveauEtude;
     }
 

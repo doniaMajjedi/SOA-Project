@@ -9,7 +9,8 @@ public interface TeacherService {
 
     List<Teacher> getAllTeachers();
     Teacher getTeacherById(Long teacherId);
-    Teacher updateTeacher(Teacher teacher);
+    Teacher updateTeacher(Long id,Teacher teacher);
 
     void deleteTeacher(Long teacherId);
+
 }

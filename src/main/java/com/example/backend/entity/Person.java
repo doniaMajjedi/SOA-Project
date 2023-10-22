@@ -1,8 +1,7 @@
 package com.example.backend.entity;
 
-import java.util.Collection;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import java.sql.Date;
+
 
 import jakarta.persistence.*;
 
@@ -11,8 +10,8 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name="User")
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Person implements UserDetails{
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public class Person{
 
      @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,14 +22,14 @@ public class Person implements UserDetails{
     @Column(name = "Lastname")
     protected String prenom;
     @Column(name = "Birthday")
-    protected String datedenaissance;
+    protected Date datedenaissance;
     @Column(name = "Mail")
     protected String adr;
     @Column(name = "Adress")
     protected String ville;
 
     //constructor
-        public Person(Long id,String nom, String prenom, String datedenaissance, String adr, String ville) {
+        public Person(Long id,String nom, String prenom, Date datedenaissance, String adr, String ville) {
             this.id=id;
             this.nom = nom;
             this.prenom = prenom;
@@ -40,44 +39,7 @@ public class Person implements UserDetails{
     }
 
 
-    @Override
-    public String getPassword() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPassword'");
+    public Person() {
+
     }
-
-    @Override
-    public String getUsername() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUsername'");
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAuthorities'");
-    }
-
-    
 }
