@@ -1,25 +1,32 @@
 package com.example.backend.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import java.util.Collection;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-public class Person {
+import jakarta.persistence.*;
+
+import lombok.Data;
+
+@Data
+@Entity
+@Table(name="User")
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Person implements UserDetails{
 
      @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
     //for define inside the column
-    @Column(name = "Person_Firstname")
+    @Column(name = "Firstname")
     protected String  nom;
-    @Column(name = "Person_Lastname")
+    @Column(name = "Lastname")
     protected String prenom;
-    @Column(name = "Person_Birthday")
+    @Column(name = "Birthday")
     protected String datedenaissance;
-    @Column(name = "Person_Mail")
+    @Column(name = "Mail")
     protected String adr;
-    @Column(name = "Person_ville")
+    @Column(name = "Adress")
     protected String ville;
 
     //constructor
@@ -32,39 +39,45 @@ public class Person {
             this.ville = ville;
     }
 
-    //getters and setters
-    public Long getId() {
-        return id;
+
+    @Override
+    public String getPassword() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getPassword'");
     }
-    public String getNom() {
-        return nom;
+
+    @Override
+    public String getUsername() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getUsername'");
     }
-    public String getPrenom() {
-        return prenom;
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
-    public String getDatedenaissance() {
-        return datedenaissance;
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
-    public String getAdr() {
-        return adr;
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
-    public String getVille() {
-        return ville;
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
-    public void setNom(String nom) {
-        this.nom = nom;
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAuthorities'");
     }
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
-    public void setDatedenaissance(String datedenaissance) {
-        this.datedenaissance = datedenaissance;
-    }
-    public void setAdr(String adr) {
-        this.adr = adr;
-    }
-    public void setVille(String ville) {
-        this.ville = ville;
-    }
+
     
 }
