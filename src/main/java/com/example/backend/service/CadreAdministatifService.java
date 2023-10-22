@@ -3,7 +3,6 @@ package com.example.backend.service;
 import java.util.List;
 
 import com.example.backend.entity.CadreAdministratif;
-import com.example.backend.entity.Teacher;
 
 public interface CadreAdministatifService {
     CadreAdministratif createCadre(CadreAdministratif cadreAdministratif);
